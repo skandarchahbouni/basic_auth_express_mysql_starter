@@ -2,6 +2,7 @@ const db = require('../config/db.config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const CustomAPIError = require('../errors/custom_error')
+const User = require('../utils/user')
 
 const signup = async (req, res, next) => {
     const saltRounds = 10
@@ -24,7 +25,7 @@ const signup = async (req, res, next) => {
 
     try {
         const [{ insertId }] = await db.execute(sql_query, [email, hashed_password])
-
+        // const user = new User()
         const user = { id_user: insertId, email, username }
         const token = jwt.sign(user, process.env.JWT_SECRET, {
             expiresIn: '5d',

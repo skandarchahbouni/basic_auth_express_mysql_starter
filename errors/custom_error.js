@@ -15,6 +15,9 @@ class CustomAPIError extends Error {
     static forbidden(msg) {
         return new CustomAPIError(msg, 403)
     }
+    static notFound(msg) {
+        return new CustomAPIError(msg, 404)
+    }
 }
 
 module.exports = CustomAPIError
